@@ -17,6 +17,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>NOT Civitai</title>
+</svelte:head>
+
 <div class="flex flex-col h-screen absolute top-0 bottom-0 left-0 right-0">
 	<div
 		class="sticky top-0 bg-base-100 border-b-2 border-base-200 flex p-4 justify-between items-center"

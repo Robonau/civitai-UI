@@ -1,0 +1,47 @@
+name: Build
+
+on:
+  push:
+    branches: ['Release']
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  GenTag:
+    outputs:
+      value: ${{steps.GenTagName.outputs.value}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Generate Tag Name
+        id: GenTagName
+        run: |
+          genTag="r$(git rev-list HEAD --count)"
+          echo "$genTag"
+          echo "value=$genTag" >> $GITHUB_OUTPUT
+  build:
+    needs: GenTag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - name: Pushes web files to the gh-pages repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.DEPLOY_PAGES_TOKEN }}
+        with:
+          source-directory: 'build'
+          destination-github-username: 'robos-civitai-ui'
+          destination-repository-name: 'robos-civitai-ui.github.io'
+          user-email: n/a
+          target-branch: main
