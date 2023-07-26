@@ -114,7 +114,9 @@
 
 <div class="sticky top-0 z-50 bg-base-100 border-b-2 border-base-200 flex justify-between p-1">
 	<div class="dropdown">
-		<button class="btn">Sort<Icon icon="mdi:chevron-down" /></button>
+		<button class="btn"
+			>{sort[$searchObject.sort ?? 'Highest Rated']}<Icon icon="mdi:chevron-down" /></button
+		>
 		<ul class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
 			{#each Object.values(sort) as srt}
 				<li>
@@ -166,7 +168,7 @@
 				<input
 					id="Queryinput"
 					type="text"
-					placeholder="Query"
+					placeholder="Search"
 					value={$searchObject.query ?? ''}
 					on:change={(e) => {
 						handelfilter('query', e.currentTarget.value);
