@@ -10,6 +10,9 @@ interface ISearchdata {
 }
 
 export function Search() {
+
+  let controller = new AbortController();
+
   const searchdefault = {
     limit: 100
   }
@@ -24,6 +27,8 @@ export function Search() {
     })
   })
   const doSearch = async () => {
+    controller.abort()
+    controller = new AbortController();
     let data: ISearchResponce | null = null
     let error: Error | null = null
     try {
@@ -46,25 +51,29 @@ export function Search() {
         unsub()
       })
       const url = new URL(`https://civitai.com/api/v1/models?${Search.toString()}`)
-      const resp = await fetch(url)
+      const resp = await fetch(url, { signal: controller.signal })
       if (resp.status !== 200) {
         throw new Error(resp.status.toString());
       }
       data = await resp.json() as ISearchResponce
     } catch (e: unknown) {
+      if (e instanceof Error && e.name === 'AbortError') {
+        return
+      }
       error = e as Error
     }
     responce.set({ data, error })
   }
   async function resetSearch() {
+    controller.abort()
+    controller = new AbortController();
     const token = await new Promise<string | undefined>((resolve) => {
       const unsub = searchObject.subscribe((e) => {
         resolve(e.token)
       })
       unsub()
     })
-    searchObject.set({ ...searchdefault, token })
-    page.set(undefined)
+    searchObject.set({ ...searchdefault, token, page: undefined })
     reset.update(n => !n)
   }
   return {

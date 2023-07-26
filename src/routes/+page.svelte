@@ -26,9 +26,12 @@
 	let selected: ISearchResponce['items'] = [];
 
 	responce.subscribe((e) => {
-		error = e.error;
-		loading = false;
+		if (e.error !== null) {
+			error = e.error;
+			loading = false;
+		}
 		if (e.data !== null) {
+			loading = false;
 			dataa.push(e.data);
 			dataa = dataa;
 		}
@@ -57,9 +60,7 @@
 			n.sort = e;
 			return n;
 		});
-		selected = [];
-		dataa = [];
-		doSearch();
+		reset.update((n) => !n);
 	}
 
 	function handelfilter<K extends keyof IsearchObject>(key: K, value: IsearchObject[K]) {
@@ -112,11 +113,11 @@
 	}
 </script>
 
-<div class="sticky top-0 z-50 bg-base-100 border-b-2 border-base-200 flex justify-between p-1">
+<div class="sticky top-0 z-10 bg-base-100 border-b-2 border-base-200 flex justify-between p-1">
 	<div class="dropdown">
-		<button class="btn"
-			>{sort[$searchObject.sort ?? 'Highest Rated']}<Icon icon="mdi:chevron-down" /></button
-		>
+		<button class="btn">
+			{sort[$searchObject.sort ?? 'Highest Rated']}<Icon icon="mdi:chevron-down" />
+		</button>
 		<ul class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
 			{#each Object.values(sort) as srt}
 				<li>
@@ -320,6 +321,7 @@
 					<input
 						type="radio"
 						name="rating"
+						checked={$searchObject.rating === undefined}
 						on:change={() => {
 							handelfilter('rating', undefined);
 						}}
@@ -414,7 +416,8 @@
 					<input
 						type="checkbox"
 						checked={$searchObject.nsfw === undefined ? true : $searchObject.nsfw}
-						on:change={() => handelfilter('nsfw', !$searchObject.nsfw)}
+						on:change={() =>
+							handelfilter('nsfw', $searchObject.nsfw === undefined ? false : !$searchObject.nsfw)}
 						class="checkbox"
 					/>
 				</label>

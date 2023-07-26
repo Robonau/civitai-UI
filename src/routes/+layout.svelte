@@ -19,7 +19,7 @@
 
 <div class="flex flex-col h-screen absolute top-0 bottom-0 left-0 right-0">
 	<div
-		class="sticky top-0 bg-base-100 border-b-2 border-base-200 flex p-4 justify-between z-40 items-center"
+		class="sticky top-0 bg-base-100 border-b-2 border-base-200 flex p-4 justify-between items-center"
 	>
 		<a href="https://civitai.com/">
 			<CivitaiLogo />
@@ -32,7 +32,7 @@
 				class="input input-bordered w-full"
 			/>
 			<button
-				class="btn btn-ghost text-error tooltip tooltip-bottom normal-case"
+				class="btn btn-ghost text-error tooltip tooltip-right normal-case z-20"
 				data-tip="Will reset all filters"
 				on:click={resetSearch}
 			>
