@@ -35,6 +35,11 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
+      - name: copy file
+        uses: canastro/copy-file-action@master
+        with:
+          source: 'build/index.html'
+          target: 'build/404.html'
       - name: Pushes web files to the gh-pages repository
         uses: cpina/github-action-push-to-another-repository@main
         env:
