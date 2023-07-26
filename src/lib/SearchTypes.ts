@@ -72,7 +72,7 @@ export interface IsearchObject {
   allowCommercialUse?: allowCommercialUse
   nsfw?: boolean
   periodMode?: periodMode,
-  baseModel?: baseModel[],
+  baseModels?: baseModel[],
   earlyAccess?: boolean
   token?: string
 }
