@@ -258,14 +258,14 @@
 				{#each Object.entries(baseModel) as bsem}
 					<button
 						on:click={() => {
-							if ($searchObject.baseModel !== undefined) {
-								handelfilter('baseModel', addOrRemove($searchObject.baseModel, bsem[1]));
+							if ($searchObject.baseModels !== undefined) {
+								handelfilter('baseModels', addOrRemove($searchObject.baseModels, bsem[1]));
 							} else {
-								handelfilter('baseModel', [bsem[1]]);
+								handelfilter('baseModels', [bsem[1]]);
 							}
 						}}
 						class="btn mr-1 mt-1
-							{$searchObject.baseModel?.includes(bsem[1]) && 'btn-primary'}
+							{$searchObject.baseModels?.includes(bsem[1]) && 'btn-primary'}
 							"
 					>
 						{bsem[1]}
