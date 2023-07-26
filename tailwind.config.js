@@ -6,6 +6,9 @@ export default {
       aspectRatio: {
         cover: '210 / 297'
       },
+      fontSize: {
+        '2xs': '0.70rem'
+      }
     },
   },
   plugins: [require("daisyui")],

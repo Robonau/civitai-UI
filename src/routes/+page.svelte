@@ -35,6 +35,7 @@
 	});
 	reset.subscribe((e) => {
 		if (e !== undefined) {
+			selected = [];
 			dataa = [];
 			doSearch();
 		}
@@ -56,6 +57,7 @@
 			n.sort = e;
 			return n;
 		});
+		selected = [];
 		dataa = [];
 		doSearch();
 	}
@@ -66,6 +68,7 @@
 			n[key] = value;
 			return n;
 		});
+		selected = [];
 		dataa = [];
 	}
 
@@ -135,17 +138,24 @@
 		</ul>
 	</div>
 	<div>
-		<button class="btn" on:click={copy}> Copy selected download links </button>
+		<button class="btn" on:click={() => (selected = [])}> reset selected</button>
 		<button
-			class="btn"
-			on:click={() => {
-				modal?.showModal();
-				filterChange = false;
-			}}
+			class="btn tooltip tooltip-bottom normal-case"
+			data-tip="I mainly use this for JDownloader"
+			on:click={copy}
 		>
-			Filters
+			<span class="uppercase">Copy selected download links</span>
 		</button>
 	</div>
+	<button
+		class="btn"
+		on:click={() => {
+			modal?.showModal();
+			filterChange = false;
+		}}
+	>
+		Filters
+	</button>
 	<dialog class="modal" bind:this={modal}>
 		<div class="modal-box max-w-xl h-screen">
 			<h3 class="font-bold text-lg">Filters!</h3>
@@ -460,6 +470,11 @@
 									src={item.modelVersions[0]?.images[0]?.url ?? ''}
 									class="aspect-cover w-full bg-base-200 rounded-xl hover:opacity-50 transition-opacity duration-300"
 								>
+									<div class="absolute top-2 left-2">
+										<div class="badge badge-primary text-2xs rounded-md opacity-70 font-bold">
+											{item.type}
+										</div>
+									</div>
 									<div class="absolute bottom-0 bg-base-200/80 left-0 right-0 rounded-b-oxl">
 										<div class="line-clamp-2 px-2 h-12 text-center" title={item.name}>
 											{item.name}
