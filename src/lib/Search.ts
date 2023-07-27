@@ -13,8 +13,10 @@ export function Search() {
 
   let controller = new AbortController();
 
-  const searchdefault = {
-    limit: 100
+  const searchdefault: IsearchObject = {
+    limit: 100,
+    nsfw: false,
+    page: 1
   }
   const responce = writable<ISearchdata>({ data: null, error: null })
   const reset = writable<boolean | undefined>(undefined)

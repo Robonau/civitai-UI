@@ -4,7 +4,7 @@
 	import Icon from '@iconify/svelte';
 	import type { LayoutData } from './$types';
 	export let data: LayoutData;
-	const { resetSearch, searchObject, reset } = data.search;
+	const { resetSearch, searchObject, reset, doSearch } = data.search;
 	let modal: HTMLDialogElement | null;
 	let showToken = false;
 
@@ -33,6 +33,7 @@
 				type="text"
 				placeholder="Search"
 				bind:value={$searchObject.query}
+				on:change={doSearch}
 				class="input input-bordered w-full"
 			/>
 			<button

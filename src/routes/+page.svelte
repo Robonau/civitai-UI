@@ -71,6 +71,7 @@
 		});
 		selected = [];
 		dataa = [];
+		page.set(1);
 	}
 
 	interface tag {

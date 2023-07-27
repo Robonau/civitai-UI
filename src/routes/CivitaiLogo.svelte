@@ -13,7 +13,7 @@
 		<path style="fill: #c21911;" d="M0 22.7 47 10 107 0 57 12 0 22.7" />
 	</g>
 </svg>
-<svg class="h-8 sm:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.7 22.7">
+<svg class="h-8 sm:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.4 23.2">
 	<g>
 		<linearGradient
 			id="innerGradient"
@@ -41,12 +41,12 @@
 		<path style="fill:url(#innerGradient)" d="M1.5,6.6v10l8.7,5l8.7-5v-10l-8.7-5L1.5,6.6z" />
 		<path
 			style="fill:url(#outerGradient)"
-			d="M10.2,4.7l5.9,3.4V15l-5.9,3.4L4.2,15V8.1 L10.2,4.7 M10.2,1.6l-8.7,5v10l8.7,5l8.7-5v-10C18.8,6.6,10.2,1.6,10.2,1.6z"
+			d="M10.2 4.7 16.1 8.1V15L10.2 18.4 4.2 15V8.1L10.2 4.7M10.2 1.6 1.5 6.6V16.6L10.2 21.6 18.9 16.6V6.6L10.2 1.6"
 		/>
 		<path
 			style="fill:#fff"
 			d="M11.8,12.4l-1.7,1l-1.7-1v-1.9l1.7-1l1.7,1h2.1V9.3l-3.8-2.2L6.4,9.3v4.3l3.8,2.2l3.8-2.2v-1.2H11.8z"
 		/>
-		<path style="fill: #c21911;" d="M0 22.7 10 9 22.7 0 13 12 0 22.7" />
+		<path style="fill: #c21911;" d="M0 23.2 9 10.23 20.4 0 11.4 12.96 0 23.2" />
 	</g>
 </svg>
