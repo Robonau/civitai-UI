@@ -217,3 +217,8 @@ export interface ISearchResponce {
   items: item[],
   metadata: metadata
 }
+
+export interface ISearchdata {
+  data: ISearchResponce | null
+  error: Error | null
+}
