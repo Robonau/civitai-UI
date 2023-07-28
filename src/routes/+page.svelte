@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { writable } from 'svelte/store';
 	import ImageCard from './imageCard.svelte';
 	import IntersectionObserver from '$lib/IntersectionObserver.svelte';
 	import { type ISearchResponce, sort } from '$lib/SearchTypes';
@@ -14,6 +15,7 @@
 	let loading = true;
 	let error: Error | null = null;
 	let selected: ISearchResponce['items'] = [];
+	let isNtSelected = writable(false);
 
 	responce.subscribe((e) => {
 		if (e.error !== null) {
@@ -59,7 +61,9 @@
 	}
 </script>
 
-<div class="sticky top-0 z-10 bg-base-100 border-b-2 border-base-200 flex justify-between p-1">
+<div
+	class="sticky top-0 z-10 bg-base-100 border-b-2 border-base-200 flex justify-between p-1 items-center flex-col sm:flex-row"
+>
 	<div class="dropdown">
 		<button class="btn">
 			{sort[$searchObject.sort ?? 'Highest Rated']}<Icon icon="mdi:chevron-down" />
@@ -86,26 +90,39 @@
 			{/each}
 		</ul>
 	</div>
-	<div class="flex items-center">
+	<div class="flex items-center flex-col md:flex-row">
 		<label class="flex items-center">
-			<span class="label-text">Select Mode</span>
+			<span class="label-text select-none">Select Mode</span>
 			<input type="checkbox" bind:checked={selectMode} class="checkbox mx-1" />
 		</label>
-		{#if selectMode}
-			<button class="btn mx-1" on:click={() => (selected = [])}> reset selected</button>
-			<button
-				class="btn tooltip tooltip-bottom normal-case mx-1"
-				data-tip="I mainly use this for JDownloader"
-				on:click={copy}
-			>
-				<span class="uppercase">Copy selected download links</span>
-			</button>
-		{/if}
+		<div class="flex flex-col md:flex-row">
+			{#if selectMode}
+				<button
+					class="btn mx-1"
+					on:click={() => {
+						selected = [];
+						isNtSelected.set(!$isNtSelected);
+					}}
+				>
+					reset selected</button
+				>
+				<button
+					class="btn tooltip tooltip-bottom normal-case mx-1"
+					data-tip="I mainly use this for JDownloader"
+					on:click={copy}
+				>
+					<span class="uppercase">Copy selected download links</span>
+				</button>
+			{/if}
+		</div>
 	</div>
 	<Filters
 		search={data.search}
 		on:resetData={() => (dataa = [])}
-		on:resetSelected={() => (selected = [])}
+		on:resetSelected={() => {
+			selected = [];
+			isNtSelected.set(!$isNtSelected);
+		}}
 		on:loading={({ detail }) => (loading = detail)}
 	/>
 </div>
@@ -113,15 +130,16 @@
 	<div class="flex flex-wrap">
 		{#each dataa as dat}
 			{#each dat.items as item}
-				<div class="w-1/6 p-1">
+				<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 p-1">
 					<IntersectionObserver
 						let:intersecting
 						top={400}
 						bottom={400}
 						class="aspect-cover w-full bg-base-200 rounded-lg"
 					>
-						{#if intersecting}
+						{#if intersecting || !!window.__TAURI_METADATA__}
 							<ImageCard
+								{isNtSelected}
 								{selectMode}
 								{item}
 								on:selected={({ detail }) => {

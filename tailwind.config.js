@@ -8,6 +8,13 @@ export default {
       },
       fontSize: {
         '2xs': '0.70rem'
+      },
+      screens: {
+        'sm': '550px',
+        'md': '868px',
+        'lg': '1124px',
+        'xl': '1380px',
+        '2xl': '1696px',
       }
     },
   },

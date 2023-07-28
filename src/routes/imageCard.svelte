@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Writable } from 'svelte/store';
 	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
 	import Image from '$lib/Image.svelte';
@@ -8,6 +9,7 @@
 
 	export let item: ISearchResponce['items'][0];
 	export let selectMode: boolean;
+	export let isNtSelected: Writable<boolean>;
 	let isSelected = false;
 	const dispatch = createEventDispatcher<{
 		selected: boolean;
@@ -17,6 +19,10 @@
 			isSelected = false;
 		}
 	}
+
+	isNtSelected.subscribe(() => {
+		isSelected = false;
+	});
 
 	function formatNumber(num: number, precision = 3): string {
 		const map = [
@@ -28,10 +34,16 @@
 			{ suffix: 'K', threshold: 1e3 },
 			{ suffix: '', threshold: 1 }
 		];
+		if (num === 0) return '0';
 
 		const found = map.find((x) => Math.abs(num) >= x.threshold);
 		if (found) {
-			const formatted = (num / found.threshold).toPrecision(precision) + found.suffix;
+			let curr = 0;
+			for (let index = 1; index <= precision; index++) {
+				const element = parseInt((num / found.threshold).toPrecision(index));
+				if (curr !== element) curr = element;
+			}
+			const formatted = curr.toString() + found.suffix;
 			return formatted;
 		}
 
@@ -50,18 +62,19 @@
 			goto(`https://civitai.com/models/${item.id}`);
 		}
 	}}
-	class={isSelected ? 'opacity-50' : ''}
 >
 	<Image
 		src={item.modelVersions[0]?.images[0]?.url ?? ''}
-		class="aspect-cover w-full bg-base-200 rounded-xl hover:opacity-50 transition-opacity duration-300"
+		class="{isSelected
+			? 'opacity-50'
+			: ''} aspect-cover w-full bg-base-200 rounded-xl hover:opacity-50 transition-opacity duration-300"
 	>
 		<div class="absolute top-2 left-2">
 			<div class="badge badge-primary text-2xs rounded-md opacity-70 font-bold">
 				{item.type}
 			</div>
 		</div>
-		<div class="absolute bottom-0 bg-base-100/75 left-0 backdrop-blur-sm right-0 rounded-b-oxl">
+		<div class="absolute bottom-0 bg-base-100/75 left-0 backdrop-blur-sm right-0 rounded-b-lg">
 			<div class="px-2 h-10 text-sm z-10 flex items-center" title={item.name}>
 				<span class="line-clamp-2">{item.name}</span>
 			</div>
@@ -108,7 +121,7 @@
 						</svg>
 					{/each}
 					<div class="text-xs flex items-center">
-						<span>{item.stats.ratingCount}</span>
+						<span>{formatNumber(item.stats.ratingCount)}</span>
 					</div>
 				</div>
 				<div class="flex">
