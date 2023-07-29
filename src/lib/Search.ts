@@ -1,20 +1,16 @@
 
 import { writable } from "svelte/store"
-import type { ISearchResponce, IsearchObject } from "./SearchTypes"
+import type { ISearchResponce, ISearchdata, IsearchObject } from "./SearchTypes"
 import { persistBrowserLocal } from "@macfja/svelte-persistent-store"
-
-
-interface ISearchdata {
-  data: ISearchResponce | null
-  error: Error | null
-}
 
 export function Search() {
 
   let controller = new AbortController();
 
-  const searchdefault = {
-    limit: 100
+  const searchdefault: IsearchObject = {
+    limit: 100,
+    nsfw: false,
+    page: 1
   }
   const responce = writable<ISearchdata>({ data: null, error: null })
   const reset = writable<boolean | undefined>(undefined)
