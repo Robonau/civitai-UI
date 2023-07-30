@@ -38,6 +38,7 @@ export enum baseModel {
   "SD 2.1 768" = "SD 2.1 768",
   "SD 2.1 Unclip" = "SD 2.1 Unclip",
   "SDXL 0.9" = "SDXL 0.9",
+  "SDXL 1.0" = "SDXL 1.0",
   "Other" = "Other"
 }
 
