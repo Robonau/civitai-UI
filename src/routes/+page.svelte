@@ -131,31 +131,22 @@
 		{#each dataa as dat}
 			{#each dat.items as item}
 				<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 p-1">
-					<IntersectionObserver
-						let:intersecting
-						top={400}
-						bottom={400}
-						class="aspect-cover w-full bg-base-200 rounded-lg"
-					>
-						{#if intersecting || !!window.__TAURI_METADATA__}
-							<ImageCard
-								{isNtSelected}
-								{selectMode}
-								{item}
-								on:selected={({ detail }) => {
-									if (detail) {
-										selected.push(item);
-										selected = selected;
-									} else {
-										selected = selected.filter((ele) => ele.id !== item.id);
-									}
-								}}
-							/>
-						{/if}
-					</IntersectionObserver>
+					<ImageCard
+						{isNtSelected}
+						{selectMode}
+						{item}
+						on:selected={({ detail }) => {
+							if (detail) {
+								selected.push(item);
+								selected = selected;
+							} else {
+								selected = selected.filter((ele) => ele.id !== item.id);
+							}
+						}}
+					/>
 				</div>
 			{/each}
-			<IntersectionObserver on:intersect={hendleintersect} />
+			<IntersectionObserver on:intersect={hendleintersect} top={400} />
 		{/each}
 	</div>
 {:else if loading}
