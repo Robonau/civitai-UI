@@ -182,6 +182,7 @@
 		<div class="flex flex-wrap mb-1 w-full">
 			{#each Object.entries(baseModel) as bsem}
 				<BunchOButtons
+					selected={$searchObject.baseModels?.includes(bsem[1])}
 					on:selected={({ detail }) => {
 						if (detail) {
 							handelfilter('baseModels', [...($searchObject.baseModels ?? []), bsem[1]]);
