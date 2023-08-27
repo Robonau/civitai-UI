@@ -3,6 +3,8 @@ import { writable } from "svelte/store"
 import type { ISearchResponce, ISearchdata, IsearchObject } from "./SearchTypes"
 import { persistBrowserLocal } from "@macfja/svelte-persistent-store"
 
+export const onlyNsfw = persistBrowserLocal(writable<boolean>(false), 'onlyNsfw');
+
 export function Search() {
 
   let controller = new AbortController();

@@ -14,6 +14,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import Icon from '@iconify/svelte';
 	import BunchOButtons from './bunchOButtons.svelte';
+	import { onlyNsfw } from '$lib/Search';
 
 	export let search: {
 		responce: Writable<ISearchdata>;
@@ -41,6 +42,27 @@
 		dispatch('resetSelected');
 		dispatch('resetData');
 		page.set(1);
+	}
+
+	function onlynsfw(
+		e: Event & {
+			currentTarget: EventTarget & HTMLInputElement;
+		}
+	) {
+		if (e.currentTarget.value) {
+			handelfilter('nsfw', true);
+			onlyNsfw.set(true);
+		} else {
+			onlyNsfw.set(false);
+		}
+	}
+	function nsfw() {
+		if (onlyNsfw) {
+			onlyNsfw.set(false);
+			handelfilter('nsfw', false);
+		} else {
+			handelfilter('nsfw', $searchObject.nsfw === undefined ? false : !$searchObject.nsfw);
+		}
 	}
 
 	interface tag {
@@ -338,12 +360,22 @@
 		</div>
 		<div>
 			<label class="label cursor-pointer">
-				<span class="label-text">NSFW</span>
+				<span class="label-text">Allow NSFW</span>
 				<input
 					type="checkbox"
 					checked={$searchObject.nsfw === undefined ? true : $searchObject.nsfw}
-					on:change={() =>
-						handelfilter('nsfw', $searchObject.nsfw === undefined ? false : !$searchObject.nsfw)}
+					on:change={() => nsfw()}
+					class="checkbox"
+				/>
+			</label>
+		</div>
+		<div class=" tooltip tooltip-top w-full" data-tip="this is done client side">
+			<label class="label cursor-pointer">
+				<span class="label-text">Only NSFW</span>
+				<input
+					type="checkbox"
+					checked={$onlyNsfw}
+					on:change={(e) => onlynsfw(e)}
 					class="checkbox"
 				/>
 			</label>
