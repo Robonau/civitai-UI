@@ -49,7 +49,7 @@
 			currentTarget: EventTarget & HTMLInputElement;
 		}
 	) {
-		if (e.currentTarget.value) {
+		if (e.currentTarget.checked) {
 			handelfilter('nsfw', true);
 			onlyNsfw.set(true);
 		} else {
