@@ -4,7 +4,7 @@
 	import IntersectionObserver from '$lib/IntersectionObserver.svelte';
 	import { type ISearchResponce, sort } from '$lib/SearchTypes';
 	import Icon from '@iconify/svelte';
-
+	import { onlyNsfw } from '$lib/Search';
 	import type { LayoutData } from './$types';
 	import Filters from './filters.svelte';
 	export let data: LayoutData;
@@ -37,6 +37,7 @@
 	});
 	doSearch();
 	function hendleintersect(e: CustomEvent<boolean>) {
+		console.log(e.detail);
 		if (
 			!loading &&
 			e.detail &&
@@ -130,23 +131,25 @@
 	<div class="flex flex-wrap">
 		{#each dataa as dat}
 			{#each dat.items as item}
-				<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 p-1">
-					<ImageCard
-						{isNtSelected}
-						{selectMode}
-						{item}
-						on:selected={({ detail }) => {
-							if (detail) {
-								selected.push(item);
-								selected = selected;
-							} else {
-								selected = selected.filter((ele) => ele.id !== item.id);
-							}
-						}}
-					/>
-				</div>
+				{#if !onlyNsfw || item.nsfw}
+					<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 p-1">
+						<ImageCard
+							{isNtSelected}
+							{selectMode}
+							{item}
+							on:selected={({ detail }) => {
+								if (detail) {
+									selected.push(item);
+									selected = selected;
+								} else {
+									selected = selected.filter((ele) => ele.id !== item.id);
+								}
+							}}
+						/>
+					</div>
+				{/if}
 			{/each}
-			<IntersectionObserver on:intersect={hendleintersect} top={400} />
+			<IntersectionObserver on:intersect={hendleintersect} top={400} class="h-1 w-full" />
 		{/each}
 	</div>
 {:else if loading}
