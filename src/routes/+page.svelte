@@ -37,7 +37,6 @@
 	});
 	doSearch();
 	function hendleintersect(e: CustomEvent<boolean>) {
-		console.log(e.detail);
 		if (
 			!loading &&
 			e.detail &&
@@ -149,7 +148,7 @@
 					</div>
 				{/if}
 			{/each}
-			<IntersectionObserver on:intersect={hendleintersect} top={400} class="h-1 w-full" />
+			<IntersectionObserver on:intersect={hendleintersect} top={400} class="h-1" />
 		{/each}
 	</div>
 {:else if loading}
