@@ -130,7 +130,7 @@
 	<div class="flex flex-wrap">
 		{#each dataa as dat}
 			{#each dat.items as item}
-				{#if !onlyNsfw || item.nsfw}
+				{#if !$onlyNsfw || item.nsfw}
 					<div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 p-1">
 						<ImageCard
 							{isNtSelected}
