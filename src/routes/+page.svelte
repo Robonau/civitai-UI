@@ -56,7 +56,12 @@
 	}
 	function copy() {
 		navigator.clipboard.writeText(
-			selected.map((ele) => ele.modelVersions[0].downloadUrl).join('\n')
+			selected
+				.map((ele) => {
+					if (ele.modelVersions[0]) return ele.modelVersions[0].downloadUrl;
+					return '';
+				})
+				.join('\n')
 		);
 	}
 </script>
