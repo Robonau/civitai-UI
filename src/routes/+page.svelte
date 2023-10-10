@@ -50,6 +50,7 @@
 	function hendleSort(e: sort) {
 		searchObject.update((n) => {
 			n.sort = e;
+			n.page = 1;
 			return n;
 		});
 		reset.update((n) => !n);
