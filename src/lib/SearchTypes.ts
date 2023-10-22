@@ -158,7 +158,8 @@ interface images {
   "width": number,
   "height": number,
   "hash": string,
-  "meta": ImageMeta
+  "meta": ImageMeta,
+  "type": string
 }
 
 interface files {

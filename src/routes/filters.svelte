@@ -57,7 +57,7 @@
 		}
 	}
 	function nsfw() {
-		if (onlyNsfw) {
+		if ($onlyNsfw) {
 			onlyNsfw.set(false);
 			handelfilter('nsfw', false);
 		} else {

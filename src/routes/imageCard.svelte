@@ -50,6 +50,9 @@
 
 		return 'N/A';
 	}
+
+	const imgs = item.modelVersions[0].images;
+	const img = imgs.find((ele) => ele.type === 'image')?.url ?? '';
 </script>
 
 <IntersectionObserver
@@ -72,7 +75,7 @@
 			}}
 		>
 			<Image
-				src={item.modelVersions[0]?.images[0]?.url ?? ''}
+				src={img}
 				class="{isSelected
 					? 'opacity-50'
 					: ''} aspect-cover w-full bg-base-200 rounded-xl hover:opacity-50 transition-opacity duration-300"
