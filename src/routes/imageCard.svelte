@@ -51,7 +51,7 @@
 		return 'N/A';
 	}
 
-	const imgs = item.modelVersions ? item.modelVersions[0].images : undefined;
+	const imgs = item.modelVersions[0] ? item.modelVersions[0].images : undefined;
 	const img = imgs?.find((ele) => ele.type === 'image')?.url ?? '';
 </script>
 

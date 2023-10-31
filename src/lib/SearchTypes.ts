@@ -212,7 +212,7 @@ interface item {
   "stats": stats,
   "creator": creator,
   "tags": string[],
-  "modelVersions"?: modelVersions[]
+  "modelVersions": modelVersions[]
 }
 
 export interface ISearchResponce {

@@ -59,7 +59,7 @@
 		navigator.clipboard.writeText(
 			selected
 				.map((ele) => {
-					if (ele.modelVersions && ele.modelVersions[0]) return ele.modelVersions[0].downloadUrl;
+					if (ele.modelVersions[0]) return ele.modelVersions[0].downloadUrl;
 					return '';
 				})
 				.join('\n')
