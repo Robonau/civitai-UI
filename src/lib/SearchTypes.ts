@@ -4,21 +4,27 @@ export enum types {
   "Hypernetwork" = "Hypernetwork",
   "AestheticGradient" = "AestheticGradient",
   "LORA" = "LORA",
-  "LyCORIS" = 'LoCon',
+  "LoCon" = "LoCon",
   "Controlnet" = "Controlnet",
   "Upscaler" = "Upscaler",
+  "MotionModule" = "MotionModule",
   "VAE" = "VAE",
   "Poses" = "Poses",
   "Wildcards" = "Wildcards",
-  "Other" = "Other"
+  "Workflows" = "Workflows",
+  "Other" = "Other",
 }
 
 export enum sort {
   "Highest Rated" = "Highest Rated",
   "Most Downloaded" = "Most Downloaded",
   "Most Liked" = "Most Liked",
+  "Most Buzz" = "Most Buzz",
   "Most Discussed" = "Most Discussed",
-  "Newest" = "Newest"
+  "Most Collected" = "Most Collected",
+  "Most Images" = "Most Images",
+  "Newest" = "Newest",
+  "Oldest" = "Oldest"
 }
 
 export enum period {
@@ -32,6 +38,7 @@ export enum period {
 export enum baseModel {
   "SD 1.4" = "SD 1.4",
   "SD 1.5" = "SD 1.5",
+  "SD 1.5 LCM" = "SD 1.5 LCM",
   "SD 2.0" = "SD 2.0",
   "SD 2.0 768" = "SD 2.0 768",
   "SD 2.1" = "SD 2.1",
@@ -39,6 +46,16 @@ export enum baseModel {
   "SD 2.1 Unclip" = "SD 2.1 Unclip",
   "SDXL 0.9" = "SDXL 0.9",
   "SDXL 1.0" = "SDXL 1.0",
+  "Pony" = "Pony",
+  "SDXL 1.0 LCM" = "SDXL 1.0 LCM",
+  "SDXL Distilled" = "SDXL Distilled",
+  "SDXL Turbo" = "SDXL Turbo",
+  "SDXL Lightning" = "SDXL Lightning",
+  "Stable Cascade" = "Stable Cascade",
+  "SVD" = "SVD",
+  "SVD XT" = "SVD XT",
+  "Playground v2" = "Playground v2",
+  "PixArt a" = "PixArt a",
   "Other" = "Other"
 }
 
